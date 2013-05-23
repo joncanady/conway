@@ -33,4 +33,19 @@ describe Board do
       board.to_s.split("\n").count.must_equal 3
     end
   end
+
+  describe 'toggling' do 
+    it 'makes dead cells alive' do
+      board = Board.new(2,2)
+      board.toggle(2,2)
+      board.to_s.must_equal "..\n.*\n"
+    end
+
+    it 'makes alive cells dead' do 
+      board = Board.new(2,2)
+      board.toggle(2,2)
+      board.toggle(2,2)
+      board.to_s.must_equal "..\n..\n"
+    end
+  end
 end
