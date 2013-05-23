@@ -37,24 +37,24 @@ describe Board do
   describe 'toggling' do 
     it 'makes dead cells alive' do
       board = Board.new(2,2)
-      board.toggle(2,2)
+      board.toggle(1,1)
       board.to_s.must_equal "..\n.*\n"
     end
 
     it 'makes alive cells dead' do 
       board = Board.new(2,2)
-      board.toggle(2,2)
-      board.toggle(2,2)
+      board.toggle(1,1)
+      board.toggle(1,1)
       board.to_s.must_equal "..\n..\n"
     end
   end
 
   describe 'evolving a board' do
-    it '' do
+    it 'watevs' do
       board = Board.new(4,8)
-      board.toggle(2,5)
-      board.toggle(3,4)
-      board.toggle(3,5)
+      board.toggle(1,4)
+      board.toggle(2,3)
+      board.toggle(2,4)
       board.evolve.to_s.must_equal <<EOBOARD
 ........
 ...**...
@@ -62,5 +62,35 @@ describe Board do
 ........
 EOBOARD
     end
+
+    it 'handles a blinker' do
+      skip "alive neighbor count"
+      board = Board.new(3,3)
+      board.toggle(1,0)
+      board.toggle(1,1)
+      board.toggle(1,2)
+      board.to_s.must_equal "...\n***\n...\n"
+      board = board.evolve
+      board.to_s.must_equal ".*.\n.*.\n.*.\n"
+      board = board.evolve
+      board.to_s.must_equal "...\n***\n...\n"
+      board = board.evolve
+      board.to_s.must_equal ".*.\n.*.\n.*.\n"
+    end
   end
+
+  describe "counting alive neighbors" do 
+    it "counts a single cell as having no alive neighbors" do
+      board = Board.new(1,1)
+      board.alive_neighbor_count(0,0).must_equal 0
+    end
+
+    it "counts one alive neighbor" do 
+      skip 
+      board = Board.new(2,1)
+      board.toggle(1,0)
+      board.alive_neighbor_count(0,0).must_equal 1
+    end
+  end
+
 end

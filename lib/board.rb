@@ -8,9 +8,9 @@ class Board
   #
   # height - the Integer height in cells
   # width  - the Integer width in cells
-  def initialize(height, width)
+  def initialize(width, height)
     @height, @width = height, width
-    @cells = Array.new(height) { Array.new(width) { Cell.new } }
+    @cells = Array.new(width) { Array.new(height) { Cell.new } }
   end
 
   # Public: Create a new board having moved one iteration forward.
@@ -23,15 +23,15 @@ class Board
     new_board = dup
     height.times do |h|
       width.times do |w|
-        new_board.toggle(h+1, w+1) if should_toggle?(h+1, w+1)
+        new_board.toggle(h,w) if should_toggle?(h,w)
       end
     end
     new_board
   end
 
   def should_toggle?(x,y)
-    cell = cells[x-1][y-1]
-    count = alive_neighbor_count(x-1,y-1)
+    cell = cells[x][y]
+    count = alive_neighbor_count(x,y)
 
     if cell.alive?
       count < 2 || count > 3
@@ -58,7 +58,7 @@ class Board
   #
   # Returns nothing.
   def toggle(x,y)
-    cells[x-1][y-1].toggle
+    cells[x][y].toggle
   end
 
   # Public: Renders the board as a string.
@@ -72,5 +72,8 @@ class Board
     end
     string
   end
-
+  
+  def inspect
+    "\n#{to_s}"
+  end
 end
