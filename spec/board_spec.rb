@@ -48,4 +48,19 @@ describe Board do
       board.to_s.must_equal "..\n..\n"
     end
   end
+
+  describe 'evolving a board' do
+    it '' do
+      board = Board.new(4,8)
+      board.toggle(2,5)
+      board.toggle(3,4)
+      board.toggle(3,5)
+      board.evolve.to_s.must_equal <<EOBOARD
+........
+...**...
+...**...
+........
+EOBOARD
+    end
+  end
 end
