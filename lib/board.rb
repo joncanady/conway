@@ -1,4 +1,5 @@
 class Board
+  attr_reader :height, :width
 
   # Public: Initialize a new Board
   #
@@ -9,8 +10,17 @@ class Board
   end
 
   def evolve
-    new_board = self.class.new
+    new_board = self.class.new(@height, @width)
     new_board
+  end
+
+  def to_s
+    string = ''
+    height.times do
+      width.times { string << '.' }
+      string << "\n"
+    end
+    string
   end
 
 end

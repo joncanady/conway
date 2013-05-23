@@ -5,4 +5,32 @@ describe Board do
   it 'should initialize by dimensions' do
     Board.new(4,8).wont_equal nil
   end
+
+  describe 'evolving itself' do 
+    it 'returns a new board of the same size' do
+      board = Board.new(4,8)
+      new_board = board.evolve
+
+      new_board.height.must_equal 4
+      new_board.width.must_equal 8
+      new_board.wont_equal board
+    end
+  end
+
+  describe 'rendering' do 
+    it 'to_s gives a string representation' do
+      board = Board.new(2,2)
+      board.to_s.must_equal "..\n..\n"
+    end
+
+    it 'renders width number of cells in a line' do
+      board = Board.new(3,3)
+      board.to_s.split("\n")[0].size.must_equal 3
+    end
+
+    it 'renders height number of lines' do
+      board = Board.new(3,3)
+      board.to_s.split("\n").count.must_equal 3
+    end
+  end
 end
